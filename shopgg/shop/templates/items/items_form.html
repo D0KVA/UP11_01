@@ -1,0 +1,57 @@
+{% extends  'base.html'%}
+{% load static %}
+
+{% block title_name%}
+    Форма предмета
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <h2>{% if form.instance.pk %}Редактирование {{ form.instance.name }}{% else %}Добавить товар{% endif %}</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}    
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Название:</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Описание:</label>
+                    {{ form.description }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.price.id_for_label }}">Цена:</label>
+                    {{ form.price }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.photo.id_for_label }}">Фотография:</label>
+                    {{ form.photo }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.is_exists.id_for_label }}">Доступность к заказу:</label>
+                    {{ form.is_exists }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.category.id_for_label }}">Категория:</label>
+                    {{ form.category }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.collection.id_for_label }}">Коллекция:</label>
+                    {{ form.collection }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.brand.id_for_label }}">Бренд:</label>
+                    {{ form.brand }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.supplier.id_for_label }}">Поставщик:</label>
+                    {{ form.supplier }}
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn">Сохранить</button>
+                    <a href="{% url 'product_list_view' %}" class="btn cancel">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock%}

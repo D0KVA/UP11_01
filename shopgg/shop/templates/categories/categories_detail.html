@@ -1,0 +1,22 @@
+{% extends  'base.html'%}
+{% load static %}
+
+{% block title_name%}
+    Детали категории
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <h1>{{ category.name }}</h1>
+            <p><span class="label">Название категории:</span> {{ category.name }}</p>
+            <p><span class="label">Описание:</span> {{ category.description }}</p>
+
+            <div class="actions">
+                <a href="{% url 'categories_update_view' category.pk %}" class="btn">Редактировать</a>
+                <a href="{% url 'categories_delete_view' category.pk %}" class="btn delete">Удалить</a>
+                <a href="{% url 'categories_list_view' %}" class="btn back">Назад к списку</a>
+            </div>
+        </div>
+    </div>
+{% endblock%}

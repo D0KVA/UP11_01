@@ -1,0 +1,22 @@
+{% extends  'base.html'%}
+{% load static %}
+
+{% block title_name%}
+    Подтверждение удаления категории
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <h2>Удалить {{ object.name }}</h2>
+            <p>Вы уверены, что хотите удалить эту категорию?</p>
+            <form method="post">
+                {% csrf_token %}
+                <div class="actions">
+                    <button type="submit" class="btn delete">Удалить</button>
+                    <a href="{% url 'categories_list_view' %}" class="btn cancel">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock%}

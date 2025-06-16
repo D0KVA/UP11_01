@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title_name %}
+    Детали предмета
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <h1>{{ items.name }}</h1>
+            {% if items.photo %}
+                <div class="item-photo">
+                    <img src="{{ items.photo.url }}" alt="{{ items.name }}">
+                </div>
+            {% endif %}
+            <p><span class="label">Описание:</span> {{ items.description|default:"Нет описания" }}</p>
+            <p><span class="label">Цена:</span> {{ items.price }} ₽</p>
+            <p><span class="label">Дата создания:</span> {{ items.create_date|date:"d.m.Y H:i" }}</p>
+            <p><span class="label">Доступность к заказу:</span> {{ items.is_exists|yesno:"Да,Нет" }}</p>
+            <p><span class="label">Категория:</span> {{ items.category.name|default:"Без категории" }}</p>
+            <p><span class="label">Коллекция:</span> {{ items.collection.name|default:"Без коллекции" }}</p>
+            <p><span class="label">Бренд:</span> {{ items.brand.name|default:"Без бренда" }}</p>
+            <p><span class="label">Поставщик:</span> {{ items.supplier.name|default:"Без поставщика" }}</p>
+            {% if request.user.is_authenticated %}
+                <form method="POST" action="{% url 'basket_add' items.pk %}">
+                    {% csrf_token %}
+                    {{ form_basket }}
+                    <button type="submit" class="btn">Добавить в корзину</button> 
+                </form>
+            {% endif %}
+            <div class="actions">
+                {% if request.user.is_staff %} 
+                    <a href="{% url 'items_update_view' items.pk %}" class="btn">Редактировать</a>
+                    <a href="{% url 'items_delete_view' items.pk %}" class="btn delete">Удалить</a>
+                {% endif %}
+                <a href="{% url 'product_list_view' %}" class="btn back">Назад к списку</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

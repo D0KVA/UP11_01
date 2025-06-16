@@ -1,0 +1,22 @@
+{% extends  'base.html'%}
+{% load static %}
+
+{% block title_name%}
+    Детали коллекции
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <h1>{{ collection.name }}</h1>
+            <p><span class="label">Название коллекции:</span> {{ collection.name }}</p>
+            <p><span class="label">Описание:</span> {{ collection.description }}</p>
+
+            <div class="actions">
+                <a href="{% url 'collections_update_view' collection.pk %}" class="btn">Редактировать</a>
+                <a href="{% url 'collections_delete_view' collection.pk %}" class="btn delete">Удалить</a>
+                <a href="{% url 'collections_list_view' %}" class="btn back">Назад к списку</a>
+            </div>
+        </div>
+    </div>
+{% endblock%}

@@ -1,0 +1,16 @@
+{% extends  'base_user.html'%}
+{% load static %}
+
+{% block title_name%}
+    О компании
+{% endblock%}
+
+{% block content %}
+    <main class="container">
+            <h2>О компании</h2>
+            <p>Компания Ezhkere228 была создана в 1999 году</p>
+            <p>Она максимально сильно развита на территории России</p>
+            <li><a href="{% url "contacts_view" %}">Контакты</a></li>
+            <li><a href="{% url "places_view" %}">Как нас найти</a></li>
+    </main>
+{% endblock%}

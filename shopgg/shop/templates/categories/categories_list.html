@@ -1,0 +1,23 @@
+{% extends  'base.html'%}
+{% load static %}
+
+{% block title_name%}
+    Список категорий
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+        <h2>Категории</h2>
+        <a href="{% url 'categories_create_view' %}" class="btn top-btn">Добавить новую категорию</a>
+
+        {% for position in category %}
+        <div class="card">
+            <a href="{% url 'categories_detail_view' position.pk %}" class="item-name">{{ position.name }}</a>
+            <div class="actions">
+                <a href="{% url 'categories_update_view' position.pk %}" class="btn">Редактировать</a>
+                <a href="{% url 'categories_delete_view' position.pk %}" class="btn delete">Удалить</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock%}

@@ -1,0 +1,24 @@
+{% extends  'base_user.html'%}
+{% load static %}
+
+{% block title_name%}
+    Крутые предметы
+{% endblock%}
+
+{% block content %}
+    <nav>
+            <div class="nav-container">
+                <ul class="nav-links">
+                    <li><a href="{% url "all_view" %}">Все товары</a></li>
+                    <li><a href="{% url "category_view" %}">Категории</a></li>
+                </ul>
+            </div>
+    </nav>
+    <main class="container">
+        <section class="card">
+            <h2>Статуя Леди Димитреску</h2>
+            <p>Цена: 1500 руб.</p>
+            <p>Описание: Прекарсная дама, оставившая после свой смерти такую же прекрасную статую</p>
+        </section>
+    </main>
+{% endblock%}

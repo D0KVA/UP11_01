@@ -1,0 +1,32 @@
+{% extends  'base.html'%}
+{% load static %}
+
+{% block title_name%}
+    Форма Бренда
+{% endblock%}
+
+{% block content %}
+
+<body>
+    <div class="container">
+        <div class="card">
+            <h2>{% if form.instance.pk %}Редактирование {{ form.instance.name }}{% else %}Добавить бренд{% endif %}</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}    
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Название бренда:</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.country.id_for_label }}">Страна:</label>
+                    {{ form.country }}
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn">Сохранить</button>
+                    <a href="{% url 'brands_list_view' %}" class="btn cancel">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+{% endblock%}

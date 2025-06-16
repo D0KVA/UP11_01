@@ -1,0 +1,23 @@
+{% extends  'base.html'%}
+{% load static %}
+
+{% block title_name%}
+    Список покупателей
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+        <h2>Покупатели</h2>
+        <a href="{% url 'customers_create_view' %}" class="btn top-btn">Добавить нового покупателя</a>
+
+        {% for position in customer %}
+        <div class="card">
+            <a href="{% url 'customers_detail_view' position.pk %}" class="item-name">{{ position.first_name }}</a>
+            <div class="actions">
+                <a href="{% url 'customers_update_view' position.pk %}" class="btn">Редактировать</a>
+                <a href="{% url 'customers_delete_view' position.pk %}" class="btn delete">Удалить</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock%}

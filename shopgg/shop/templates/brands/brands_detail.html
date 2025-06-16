@@ -1,0 +1,21 @@
+{% extends  'base.html'%}
+{% load static %}
+
+{% block title_name%}
+    Детали о бренде
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <h1>{{ items.name }}</h1>
+            <p><span class="label">Название бренда:</span> {{ brand.name }}</p>
+            <p><span class="label">Страна:</span> {{ brand.country }}</p>
+            <div class="actions">
+                <a href="{% url 'brands_update_view' brand.pk %}" class="btn">Редактировать</a>
+                <a href="{% url 'brands_delete_view' brand.pk %}" class="btn delete">Удалить</a>
+                <a href="{% url 'brands_list_view' %}" class="btn back">Назад к списку</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends  'base.html'%}
+{% load static %}
+
+{% block title_name%}
+    Детали поставщика
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <h1>{{ supplier.name }}</h1>
+            {% if supplier.photo %}
+                <div class="item-photo">
+                    <img src="{{ supplier.photo.url }}" alt="{{ supplier.name }}">
+                </div>
+            {% endif %}
+            <p><span class="label">Имя:</span> {{ supplier.name }}</p>
+            <p><span class="label">Контактная информация:</span> {{ supplier.contact_info }}</p>
+
+            <div class="actions">
+                <a href="{% url 'suppliers_update_view' supplier.pk %}" class="btn">Редактировать</a>
+                <a href="{% url 'suppliers_delete_view' supplier.pk %}" class="btn delete">Удалить</a>
+                <a href="{% url 'suppliers_list_view' %}" class="btn back">Назад к списку</a>
+            </div>
+        </div>
+    </div>
+{% endblock%}

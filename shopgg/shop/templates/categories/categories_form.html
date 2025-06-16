@@ -1,0 +1,29 @@
+{% extends  'base.html'%}
+{% load static %}
+
+{% block title_name%}
+    Форма категории
+{% endblock%}
+
+{% block content %}
+    <div class="container">
+        <div class="card">
+            <h2>{% if form.instance.pk %}Редактирование {{ form.instance.name }}{% else %}Добавить категорию{% endif %}</h2>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}    
+                <div class="form-group">
+                    <label for="{{ form.name.id_for_label }}">Название категории:</label>
+                    {{ form.name }}
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.description.id_for_label }}">Описание категории:</label>
+                    {{ form.description }}
+                </div>
+                <div class="actions">
+                    <button type="submit" class="btn">Сохранить</button>
+                    <a href="{% url 'categories_list_view' %}" class="btn cancel">Отмена</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock%}

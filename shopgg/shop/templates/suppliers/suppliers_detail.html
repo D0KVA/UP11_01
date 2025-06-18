@@ -18,8 +18,10 @@
             <p><span class="label">Контактная информация:</span> {{ supplier.contact_info }}</p>
 
             <div class="actions">
-                <a href="{% url 'suppliers_update_view' supplier.pk %}" class="btn">Редактировать</a>
-                <a href="{% url 'suppliers_delete_view' supplier.pk %}" class="btn delete">Удалить</a>
+                {% if request.user.is_staff %} 
+                    <a href="{% url 'suppliers_update_view' supplier.pk %}" class="btn">Редактировать</a>
+                    <a href="{% url 'suppliers_delete_view' supplier.pk %}" class="btn delete">Удалить</a>
+                {% endif %}
                 <a href="{% url 'suppliers_list_view' %}" class="btn back">Назад к списку</a>
             </div>
         </div>

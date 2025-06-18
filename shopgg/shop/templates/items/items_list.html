@@ -1,4 +1,4 @@
-{% extends  'base.html'%}
+{% extends  'base_user.html'%}
 {% load static %}
 
 {% block title_name%}
@@ -8,15 +8,17 @@
 {% block content %}
     <div class="container">
         <h2>Предметы</h2>
-        <a href="{% url 'items_create_view' %}" class="btn top-btn">Добавить новый товар</a>
+        {% if request.user.is_staff %} 
+            <a href="{% url 'items_create_view' %}" class="btn top-btn">Добавить новый товар</a>
+        {% endif %}
 
         {% for position in items %}
         <div class="card">
             <a href="{% url 'items_detail_view' position.pk %}" class="item-name">{{ position.name }}</a>
             <div class="actions">
                 {% if request.user.is_staff %} 
-                <a href="{% url 'items_update_view' position.pk %}" class="btn">Редактировать</a>
-                <a href="{% url 'items_delete_view' position.pk %}" class="btn delete">Удалить</a>
+                    <a href="{% url 'items_update_view' position.pk %}" class="btn">Редактировать</a>
+                    <a href="{% url 'items_delete_view' position.pk %}" class="btn delete">Удалить</a>
                 {% endif %}
             </div>
         </div>

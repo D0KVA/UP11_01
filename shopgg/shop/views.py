@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, DeleteView, CreateView, UpdateView
+from django.contrib.auth.decorators import user_passes_test
 from django.urls import reverse_lazy
 from .models import *
 from .forms import *
 from basket.forms import BasketAddProductForm
 from django.contrib.auth import login, logout
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
-# Create your views here.
+
+
 def general_view(request):
     return render(request, 'general.html')
 
@@ -46,7 +49,8 @@ class ItemsDetailView(DetailView):
         context['form_basket'] = BasketAddProductForm()
         return context
 
-class ItemsCreateView(CreateView):
+class ItemsCreateView(PermissionRequiredMixin ,CreateView):
+    permission_required='shop.add_item'
     model = Items
     form_class = ItemsForm
     template_name = 'items/items_form.html'
@@ -64,144 +68,169 @@ class ItemsDeleteView(DeleteView):
     success_url= reverse_lazy('product_list_view')
 
 
-class SuppliersListView(ListView):
+class SuppliersListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_supplier'
     model = Supplier
     template_name = 'suppliers/suppliers_list.html'
     context_object_name = 'supplier'
 
-class SuppliersDetailView(DetailView):
+class SuppliersDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_supplier'
     model = Supplier
     template_name = 'suppliers/suppliers_detail.html'
     context_object_name = 'supplier'
 
-class SuppliersCreateView(CreateView):
+class SuppliersCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_supplier'
     model = Supplier
     form_class = SuppliersForm
     template_name = 'suppliers/suppliers_form.html'
-    success_url= reverse_lazy('suppliers_list_view')
+    success_url = reverse_lazy('suppliers_list_view')
 
-class SuppliersUpdateView(UpdateView):
+class SuppliersUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_supplier'
     model = Supplier
     form_class = SuppliersForm
     template_name = 'suppliers/suppliers_form.html'
-    success_url= reverse_lazy('suppliers_list_view')
+    success_url = reverse_lazy('suppliers_list_view')
 
-class SuppliersDeleteView(DeleteView):
+class SuppliersDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_supplier'
     model = Supplier
     template_name = 'suppliers/suppliers_confirm_delete.html'
-    success_url= reverse_lazy('suppliers_list_view')
+    success_url = reverse_lazy('suppliers_list_view')
 
 
-class BrandsListView(ListView):
+class BrandsListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_brand'
     model = Brand
     template_name = 'brands/brands_list.html'
     context_object_name = 'brand'
 
-class BrandsDetailView(DetailView):
+class BrandsDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_brand'
     model = Brand
     template_name = 'brands/brands_detail.html'
     context_object_name = 'brand'
 
-class BrandsCreateView(CreateView):
+class BrandsCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_brand'
     model = Brand
     form_class = BrandsForm
     template_name = 'brands/brands_form.html'
-    success_url= reverse_lazy('brands_list_view')
+    success_url = reverse_lazy('brands_list_view')
 
-class BrandsUpdateView(UpdateView):
+class BrandsUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_brand'
     model = Brand
     form_class = BrandsForm
     template_name = 'brands/brands_form.html'
-    success_url= reverse_lazy('brands_list_view')
+    success_url = reverse_lazy('brands_list_view')
 
-class BrandsDeleteView(DeleteView):
+class BrandsDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_brand'
     model = Brand
     template_name = 'brands/brands_confirm_delete.html'
-    success_url= reverse_lazy('brands_list_view')
+    success_url = reverse_lazy('brands_list_view')
 
 
-class CategoriesListView(ListView):
+class CategoriesListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_category'
     model = Category
     template_name = 'categories/categories_list.html'
     context_object_name = 'category'
 
-class CategoriesDetailView(DetailView):
+class CategoriesDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_category'
     model = Category
     template_name = 'categories/categories_detail.html'
     context_object_name = 'category'
 
-class CategoriesCreateView(CreateView):
+class CategoriesCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_category'
     model = Category
     form_class = CategoriesForm
     template_name = 'categories/categories_form.html'
-    success_url= reverse_lazy('categories_list_view')
+    success_url = reverse_lazy('categories_list_view')
 
-class CategoriesUpdateView(UpdateView):
+class CategoriesUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_category'
     model = Category
     form_class = CategoriesForm
     template_name = 'categories/categories_form.html'
-    success_url= reverse_lazy('categories_list_view')
+    success_url = reverse_lazy('categories_list_view')
 
-class CategoriesDeleteView(DeleteView):
+class CategoriesDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_category'
     model = Category
     template_name = 'categories/categories_confirm_delete.html'
-    success_url= reverse_lazy('categories_list_view')
+    success_url = reverse_lazy('categories_list_view')
 
 
-class CollectionsListView(ListView):
+class CollectionsListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_collection'
     model = Collection
     template_name = 'collections/collections_list.html'
     context_object_name = 'collection'
 
-class CollectionsDetailView(DetailView):
+class CollectionsDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_collection'
     model = Collection
     template_name = 'collections/collections_detail.html'
     context_object_name = 'collection'
 
-class CollectionsCreateView(CreateView):
+class CollectionsCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_collection'
     model = Collection
     form_class = CollectionsForm
     template_name = 'collections/collections_form.html'
-    success_url= reverse_lazy('collections_list_view')
+    success_url = reverse_lazy('collections_list_view')
 
-class CollectionsUpdateView(UpdateView):
+class CollectionsUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_collection'
     model = Collection
     form_class = CollectionsForm
     template_name = 'collections/collections_form.html'
-    success_url= reverse_lazy('collections_list_view')
+    success_url = reverse_lazy('collections_list_view')
 
-class CollectionsDeleteView(DeleteView):
+class CollectionsDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_collection'
     model = Collection
     template_name = 'collections/collections_confirm_delete.html'
-    success_url= reverse_lazy('collections_list_view')
+    success_url = reverse_lazy('collections_list_view')
 
 
-class CustomersListView(ListView):
+class CustomersListView(PermissionRequiredMixin, ListView):
+    permission_required = 'shop.view_customer'
     model = Customer
     template_name = 'customers/customers_list.html'
     context_object_name = 'customer'
 
-class CustomersDetailView(DetailView):
+class CustomersDetailView(PermissionRequiredMixin, DetailView):
+    permission_required = 'shop.view_customer'
     model = Customer
     template_name = 'customers/customers_detail.html'
     context_object_name = 'customer'
 
-class CustomersCreateView(CreateView):
+class CustomersCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'shop.add_customer'
     model = Customer
     form_class = CustomersForm
     template_name = 'customers/customers_form.html'
-    success_url= reverse_lazy('customers_list_view')
+    success_url = reverse_lazy('customers_list_view')
 
-class CustomersUpdateView(UpdateView):
+class CustomersUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'shop.change_customer'
     model = Customer
     form_class = CustomersForm
     template_name = 'customers/customers_form.html'
-    success_url= reverse_lazy('customers_list_view')
+    success_url = reverse_lazy('customers_list_view')
 
-class CustomersDeleteView(DeleteView):
+class CustomersDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'shop.delete_customer'
     model = Customer
     template_name = 'customers/customers_confirm_delete.html'
-    success_url= reverse_lazy('customers_list_view')
+    success_url = reverse_lazy('customers_list_view')
 
 def login_user(request):
     if request.method == 'POST':
